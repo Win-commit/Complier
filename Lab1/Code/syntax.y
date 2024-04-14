@@ -86,6 +86,7 @@ VarDec : ID {$$ = CreateInsideNode(@$.first_line,"VarDec",Not_a_Token,"__Value__
  ;
 FunDec : ID LP VarList RP  {$$ = CreateInsideNode(@$.first_line,"FunDec",Not_a_Token,"__Value__",4,$1,$2,$3,$4);}
  | ID LP RP  {$$ = CreateInsideNode(@$.first_line,"FunDec",Not_a_Token,"__Value__",3,$1,$2,$3);}
+ | ID LP error RP {synerr = 1;}
  ;
 VarList: ParamDec COMMA VarList  {$$ = CreateInsideNode(@$.first_line,"VarList",Not_a_Token,"__Value__",3,$1,$2,$3);}
  | ParamDec  {$$ = CreateInsideNode(@$.first_line,"VarList",Not_a_Token,"__Value__",1,$1);}
@@ -109,6 +110,7 @@ DefList : /* empty */  {$$ = NULL;}
  | Def DefList  {$$ = CreateInsideNode(@$.first_line,"DefList",Not_a_Token,"__Value__",2,$1,$2);}
  ;
 Def : Specifier DecList SEMI  {$$ = CreateInsideNode(@$.first_line,"Def",Not_a_Token,"__Value__",3,$1,$2,$3);}
+ | Specifier error SEMI {synerr = 1;}
  ;
 DecList : Dec  {$$ = CreateInsideNode(@$.first_line,"DecList",Not_a_Token,"__Value__",1,$1);}
  | Dec COMMA DecList  {$$ = CreateInsideNode(@$.first_line,"DecList",Not_a_Token,"__Value__",3,$1,$2,$3);}
@@ -134,6 +136,7 @@ Exp : Exp ASSIGNOP Exp {$$ = CreateInsideNode(@$.first_line,"Exp",Not_a_Token,"_
  | ID  {$$ = CreateInsideNode(@$.first_line,"Exp",Not_a_Token,"__Value__",1,$1);}
  | INT {$$ = CreateInsideNode(@$.first_line,"Exp",Not_a_Token,"__Value__",1,$1);}
  | FLOAT {$$ = CreateInsideNode(@$.first_line,"Exp",Not_a_Token,"__Value__",1,$1);}
+ | error {synerr = 1;}
  ;
 Args : Exp COMMA Args  {$$ = CreateInsideNode(@$.first_line,"Args",Not_a_Token,"__Value__",3,$1,$2,$3);}
  | Exp {$$ = CreateInsideNode(@$.first_line,"Args",Not_a_Token,"__Value__",1,$1);}
