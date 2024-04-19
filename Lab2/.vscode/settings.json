@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "semantic.h": "c",
-        "typeinfo": "c",
-        "cstdlib": "c",
-        "syntatree.h": "c",
-        "type_traits": "c"
-    }
-}
