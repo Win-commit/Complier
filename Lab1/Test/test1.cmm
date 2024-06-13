@@ -1,5 +1,6 @@
-int inc() 
- { 
-   int i; 
-   i = i + 1; 
- } 
+int main() {
+  float length = 9.8e1.;
+  float width = 6e5;
+
+  return 0;
+}
